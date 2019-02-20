@@ -1682,6 +1682,41 @@ btFGachaAll=()=>{
       
     }
   };    
+  btFunctiondailycheck=()=>{
+  
+    let config ={ chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473', 
+    keyProvider: this.state.AllsignKey,
+    httpEndpoint: 'http://jungle2.cryptolions.io:80',
+    expireInSeconds: 60,
+    broadcast: true,
+    verbose: false, // API activity
+    sign: true};
+    const eos = Eos(config);
+    let account = this.state.transTo;
+    eos.transaction(
+      {
+        actions: 
+        [
+          {
+            account: 'devtoothowe1',
+            name: 'dailycheck',
+            authorization: 
+            [
+              {
+              actor: account,
+              permission: 'owner'
+              }
+            ],
+            data :
+             {
+               _user:account
+             }
+          
+          }
+        ]
+      }
+    )
+  };    
   
 
   render() {
@@ -1960,7 +1995,7 @@ btFGachaAll=()=>{
       <button onClick={this.btFSameSignup}>All.Signup</button>
       <button onClick={this.btFGachaAll}>Samekeygacha</button>
       <button onClick={this.btFunctionGettable}>gettable</button>
-
+      <button onClick={this.btFunctiondailycheck}>dailycheck</button>
       </div>
     );
   }
