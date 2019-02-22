@@ -1704,6 +1704,15 @@ btFGachaAll=()=>{
         console.log('transfer complete');
       }
       else{
+        const request = require('superagent');
+     const url='https://dcugl.com:5000/seed';
+     
+
+      request.post(url)
+      .set('Content-Type', 'application/json')
+      .send()
+      .then(result=>{
+        let seed = result.body.num+':'+result.body.seed;
         eos.transaction(
           {
             actions: 
@@ -1720,7 +1729,8 @@ btFGachaAll=()=>{
                 ],
                 data :
                  {
-                   _user:array[count]
+                   _user:array[count],
+                   _seed:seed
                  }
               
               }
@@ -1728,7 +1738,8 @@ btFGachaAll=()=>{
           }
         ).then(result=>{
           console.log(result);
-        }) 
+        })
+      })         
         count++;
       }
       
