@@ -162,7 +162,6 @@ class App extends Component {
 btFunctionTrans=()=>{
   
   let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-  // WIF string or array of keys..
   keyProvider: this.state.transKey,
   httpEndpoint: 'https://proxy.eosnode.tools:443',
   expireInSeconds: 60,
@@ -176,34 +175,37 @@ btFunctionTrans=()=>{
   const eos = Eos(config);
   var count = 0;
    var timer = setInterval(function(){
+    
     if(count === array.length){
       clearInterval(timer);
       console.log('transfer complete');
     }
-    eos.transaction(
-      {
-        actions: [
-          {
-            account: 'eosio.token',
-            name: 'transfer',
-            authorization: [{
-              actor: fromaccount,
-              permission: 'owner'
-            }],
-            data: {
-              from: fromaccount,
-              to: array[count],
-              quantity: balance,
-              memo: ''
+    else{
+      eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio.token',
+              name: 'transfer',
+              authorization: [{
+                actor: fromaccount,
+                permission: 'owner'
+              }],
+              data: {
+                from: fromaccount,
+                to: array[count],
+                quantity: balance,
+                memo: ''
+              }
             }
-          }
-        ]
-      }
-    ).then(result=>{
-      console.log(result);
-    })   
-    count++;
-    
+          ]
+        }
+      ).then(result=>{
+        console.log(result);
+      })   
+      count++;
+    }
+
    }, 2000);
 
   
@@ -214,7 +216,6 @@ btFunctionTrans=()=>{
 btFSameSignup=()=>{
   
   let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-  // WIF string or array of keys..
   keyProvider: this.state.AllsignKey,
   httpEndpoint: 'https://proxy.eosnode.tools:443',
   expireInSeconds: 60,
@@ -225,44 +226,44 @@ btFSameSignup=()=>{
   var array = this.state.transTo.split("  ");
   var count = 0;
    var timer = setInterval(function(){
-
-    const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
-    
-     if(count === array.length){
+    if(count === array.length){
       clearInterval(timer);
       console.log('transfer complete');
     }
-     request.post(url)
-      .set('Content-Type', 'application/json')
-      .send()
-      .then(result=>{
-        let memo = 'refpresignup:itamnetwork1:'+result.body.num+':'+result.body.seed;
-        eos.transaction(
-          {
-            actions: [
-              {
-                account: 'eosio.token',
-                name: 'transfer',
-                authorization: [{
-                  actor: array[count],
-                  permission: 'owner'
-                }],
-                data: {
-                  from: array[count],
-                  to: 'untowermain1',
-                  quantity: '1.0000 EOS',
-                  memo: memo
+    else
+    {
+      const request = require('superagent');
+      const url='https://dcugl.com:5000/seed';
+      request.post(url)
+        .set('Content-Type', 'application/json')
+        .send()
+        .then(result=>{
+          let memo = 'refpresignup:itamnetwork1:'+result.body.num+':'+result.body.seed;
+          eos.transaction(
+            {
+              actions: [
+                {
+                  account: 'eosio.token',
+                  name: 'transfer',
+                  authorization: [{
+                    actor: array[count],
+                    permission: 'owner'
+                  }],
+                  data: {
+                    from: array[count],
+                    to: 'untowermain1',
+                    quantity: '1.0000 EOS',
+                    memo: memo
+                  }
                 }
-              }
-            ]
-          }
-        ).then(result=>{
-          console.log(result);
+              ]
+            }
+          ).then(result=>{
+            console.log(result);
+          })
         })
-      })
-    count++;
-    
+      count++;
+    }
    }, 1000);
 
   
@@ -272,7 +273,6 @@ btFSameSignup=()=>{
 btFGachaAll=()=>{
   
   let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-  // WIF string or array of keys..
   keyProvider: this.state.AllsignKey,
   httpEndpoint: 'https://proxy.eosnode.tools:443',
   expireInSeconds: 60,
@@ -284,15 +284,16 @@ btFGachaAll=()=>{
   const eos = Eos(config);
   var count = 0;
    var timer = setInterval(function(){
-
-    const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
-    
-     if(count === array.length){
+    if(count === array.length)
+    {
       clearInterval(timer);
       console.log('transfer complete');
     }
-     request.post(url)
+    else
+    {
+      const request = require('superagent');
+      const url='https://dcugl.com:5000/seed';
+      request.post(url)
       .set('Content-Type', 'application/json')
       .send()
       .then(result=>{
@@ -320,18 +321,16 @@ btFGachaAll=()=>{
           console.log(result);
         })
       })
-    count++;
-    
+      count++;
+    }
    }, 2000);
-
-  
 };
 
 
 ///////////////////////////////////////////////////////////
   btFunctionAll=()=>{
     let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -341,7 +340,7 @@ btFGachaAll=()=>{
 
 
     let config2 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key2,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -350,7 +349,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config3 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key3,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -360,7 +359,7 @@ btFGachaAll=()=>{
 
 
     let config4 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key4,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -369,7 +368,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config5 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key5,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -379,7 +378,7 @@ btFGachaAll=()=>{
 
 
     let config6 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key6,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -388,7 +387,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config7 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key7,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -398,7 +397,7 @@ btFGachaAll=()=>{
 
 
     let config8 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key8,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -407,7 +406,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config9 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key9,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -417,7 +416,7 @@ btFGachaAll=()=>{
 
 
     let config10 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key10,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -760,7 +759,7 @@ btFGachaAll=()=>{
   btFunction12=()=>{
 
     let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -770,7 +769,7 @@ btFGachaAll=()=>{
 
 
     let config2 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key2,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -852,7 +851,7 @@ btFGachaAll=()=>{
   btFunction34=()=>{
 
     let config3 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key3,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -862,7 +861,7 @@ btFGachaAll=()=>{
 
 
     let config4 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key4,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -946,7 +945,7 @@ btFGachaAll=()=>{
   btFunction56=()=>{
 
     let config5 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key5,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -956,7 +955,7 @@ btFGachaAll=()=>{
 
 
     let config6 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key6,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1038,7 +1037,7 @@ btFGachaAll=()=>{
   btFunction78=()=>{
 
     let config7 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key7,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1048,7 +1047,7 @@ btFGachaAll=()=>{
 
 
     let config8 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key8,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1131,7 +1130,7 @@ btFGachaAll=()=>{
   btFunction910=()=>{
 
     let config9 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key9,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1141,7 +1140,7 @@ btFGachaAll=()=>{
 
 
     let config10 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key10,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1223,7 +1222,7 @@ btFGachaAll=()=>{
 
   btFunctionSign=()=>{
     let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1233,7 +1232,7 @@ btFGachaAll=()=>{
 
 
     let config2 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key2,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1242,7 +1241,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config3 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key3,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1252,7 +1251,7 @@ btFGachaAll=()=>{
 
 
     let config4 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key4,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1261,7 +1260,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config5 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key5,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1271,7 +1270,7 @@ btFGachaAll=()=>{
 
 
     let config6 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key6,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1280,7 +1279,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config7 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key7,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1290,7 +1289,7 @@ btFGachaAll=()=>{
 
 
     let config8 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key8,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1299,7 +1298,7 @@ btFGachaAll=()=>{
     sign: true};
 
     let config9 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key9,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1309,7 +1308,7 @@ btFGachaAll=()=>{
 
 
     let config10 ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     keyProvider: this.state.key10,
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
@@ -1660,7 +1659,7 @@ btFGachaAll=()=>{
   btFunctionGettable=()=>{
   
     let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-    // WIF string or array of keys..
+
     httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
     broadcast: true,
@@ -1686,51 +1685,53 @@ btFGachaAll=()=>{
   };    
   btFunctiondailycheck=()=>{
   
-    let config ={ chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473', 
+    let config ={ chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
     keyProvider: this.state.AllsignKey,
-    httpEndpoint: 'https://jungle2.cryptolions.io:443',
+    httpEndpoint: 'https://proxy.eosnode.tools:443',
     expireInSeconds: 60,
     broadcast: true,
     verbose: false, // API activity
     sign: true};
     const eos = Eos(config);
     var array = this.state.transTo.split("  ");
-    var count = 1;
+    var count = 0;
 
     var timer = setInterval(function(){
       
-      eos.transaction(
-        {
-          actions: 
-          [
-            {
-              account: 'devtoothowe1',
-              name: 'dailycheck',
-              authorization: 
-              [
-                {
-                actor: array[count-1],
-                permission: 'owner'
-                }
-              ],
-              data :
-               {
-                 _user:array[count-1]
-               }
-            
-            }
-          ]
-        }
-      ).then(result=>{
-        console.log(result);
-      })  
-        console.log(count);
-        console.log(array.length);
-      if(count === array.length-1){
+       
+      if(count === array.length){
         clearInterval(timer);
         console.log('transfer complete');
       }
-      count++;
+      else{
+        eos.transaction(
+          {
+            actions: 
+            [
+              {
+                account: 'devtoothowe1',
+                name: 'dailycheck',
+                authorization: 
+                [
+                  {
+                  actor: array[count],
+                  permission: 'owner'
+                  }
+                ],
+                data :
+                 {
+                   _user:array[count]
+                 }
+              
+              }
+            ]
+          }
+        ).then(result=>{
+          console.log(result);
+        }) 
+        count++;
+      }
+      
      }, 2000);
 
     
