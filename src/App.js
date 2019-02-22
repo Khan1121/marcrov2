@@ -176,6 +176,10 @@ btFunctionTrans=()=>{
   const eos = Eos(config);
   var count = 0;
    var timer = setInterval(function(){
+    if(count === array.length){
+      clearInterval(timer);
+      console.log('transfer complete');
+    }
     eos.transaction(
       {
         actions: [
@@ -199,10 +203,7 @@ btFunctionTrans=()=>{
       console.log(result);
     })   
     count++;
-    if(count === array.length){
-      clearInterval(timer);
-      console.log('transfer complete');
-    }
+    
    }, 2000);
 
   
@@ -220,15 +221,18 @@ btFSameSignup=()=>{
   broadcast: true,
   verbose: false, // API activity
   sign: true};
-
-  var array = this.state.transTo.split("  ");
   const eos = Eos(config);
+  var array = this.state.transTo.split("  ");
   var count = 0;
    var timer = setInterval(function(){
 
     const request = require('superagent');
      const url='https://dcugl.com:5000/seed';
     
+     if(count === array.length){
+      clearInterval(timer);
+      console.log('transfer complete');
+    }
      request.post(url)
       .set('Content-Type', 'application/json')
       .send()
@@ -258,10 +262,7 @@ btFSameSignup=()=>{
         })
       })
     count++;
-    if(count === array.length){
-      clearInterval(timer);
-      console.log('transfer complete');
-    }
+    
    }, 1000);
 
   
@@ -287,6 +288,10 @@ btFGachaAll=()=>{
     const request = require('superagent');
      const url='https://dcugl.com:5000/seed';
     
+     if(count === array.length){
+      clearInterval(timer);
+      console.log('transfer complete');
+    }
      request.post(url)
       .set('Content-Type', 'application/json')
       .send()
@@ -316,10 +321,7 @@ btFGachaAll=()=>{
         })
       })
     count++;
-    if(count === array.length){
-      clearInterval(timer);
-      console.log('transfer complete');
-    }
+    
    }, 2000);
 
   
@@ -1686,36 +1688,52 @@ btFGachaAll=()=>{
   
     let config ={ chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473', 
     keyProvider: this.state.AllsignKey,
-    httpEndpoint: 'http://jungle2.cryptolions.io:80',
+    httpEndpoint: 'https://jungle2.cryptolions.io:443',
     expireInSeconds: 60,
     broadcast: true,
     verbose: false, // API activity
     sign: true};
     const eos = Eos(config);
-    let account = this.state.transTo;
-    eos.transaction(
-      {
-        actions: 
-        [
-          {
-            account: 'devtoothowe1',
-            name: 'dailycheck',
-            authorization: 
-            [
-              {
-              actor: account,
-              permission: 'owner'
-              }
-            ],
-            data :
-             {
-               _user:account
-             }
-          
-          }
-        ]
+    var array = this.state.transTo.split("  ");
+    var count = 1;
+
+    var timer = setInterval(function(){
+      
+      eos.transaction(
+        {
+          actions: 
+          [
+            {
+              account: 'devtoothowe1',
+              name: 'dailycheck',
+              authorization: 
+              [
+                {
+                actor: array[count-1],
+                permission: 'owner'
+                }
+              ],
+              data :
+               {
+                 _user:array[count-1]
+               }
+            
+            }
+          ]
+        }
+      ).then(result=>{
+        console.log(result);
+      })  
+        console.log(count);
+        console.log(array.length);
+      if(count === array.length-1){
+        clearInterval(timer);
+        console.log('transfer complete');
       }
-    )
+      count++;
+     }, 2000);
+
+    
   };    
   
 
