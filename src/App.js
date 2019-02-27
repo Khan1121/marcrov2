@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Eos from 'eosjs';
 
+const webserver = 'https://dcugl.com/'
+
 class App extends Component {
   
 
@@ -233,7 +235,7 @@ btFSameSignup=()=>{
     else
     {
       const request = require('superagent');
-      const url='https://dcugl.com:5000/seed';
+      const url=webserver+'seed';
       request.post(url)
         .set('Content-Type', 'application/json')
         .send()
@@ -292,7 +294,7 @@ btFGachaAll=()=>{
     else
     {
       const request = require('superagent');
-      const url='https://dcugl.com:5000/seed';
+      const url=webserver+'seed';
       request.post(url)
       .set('Content-Type', 'application/json')
       .send()
@@ -436,7 +438,7 @@ btFGachaAll=()=>{
      const eos10 = Eos(config10);
 
      const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
      request.post(url)
       .set('Content-Type', 'application/json')
@@ -781,7 +783,7 @@ btFGachaAll=()=>{
      const eos2 = Eos(config2);
 
      const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
 
       request.post(url)
@@ -873,7 +875,7 @@ btFGachaAll=()=>{
      const eos4 = Eos(config4);
 
      const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
 
       request.post(url)
@@ -967,7 +969,7 @@ btFGachaAll=()=>{
      const eos6 = Eos(config6);
 
      const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
 
       request.post(url)
@@ -1059,7 +1061,7 @@ btFGachaAll=()=>{
      const eos8 = Eos(config8);
 
      const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
 
       request.post(url)
@@ -1152,7 +1154,7 @@ btFGachaAll=()=>{
      const eos10 = Eos(config10);
 
      const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
 
       request.post(url)
@@ -1328,7 +1330,7 @@ btFGachaAll=()=>{
      const eos10 = Eos(config10);
 
      const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
      
      request.post(url)
@@ -1705,7 +1707,7 @@ btFGachaAll=()=>{
       }
       else{
         const request = require('superagent');
-     const url='https://dcugl.com:5000/seed';
+     const url=webserver+'seed';
      
 
       request.post(url)
@@ -1718,7 +1720,7 @@ btFGachaAll=()=>{
             actions: 
             [
               {
-                account: 'devtoothowe1',
+                account: 'untowermain1',
                 name: 'dailycheck',
                 authorization: 
                 [
