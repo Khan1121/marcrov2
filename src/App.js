@@ -65,8 +65,9 @@ btFunctionTrans=()=>{
             data: {
               _user: array[count],
               _party_number: 1,
-              _stage_type: 1,
-              _stage_floor: 1
+              _type: 1,
+              _tier: 1,
+              _grade:1
             }
           }
         ]
