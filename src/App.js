@@ -199,7 +199,7 @@ class App extends Component {
     var timer = setInterval(function () {
 
       const request = require('superagent');
-      const url = 'https://dcugl.com:5000/seed';
+      const url = 'https://dcugl.com/seed';
 
       request.post(url)
         .set('Content-Type', 'application/json')
@@ -217,7 +217,7 @@ class App extends Component {
                   }],
                   data: {
                     _user: array[count],
-                    _seed:result.body.seed
+                    _seed:result.body.num+':'+result.body.seed
                   }
                 }
               ]
