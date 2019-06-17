@@ -205,22 +205,19 @@ class App extends Component {
         .set('Content-Type', 'application/json')
         .send()
         .then(result => {
-          let memo = 'gacha:' + result.body.num + ':' + result.body.seed;
           eos.transaction(
             {
               actions: [
                 {
-                  account: 'eosio.token',
-                  name: 'transfer',
+                  account: 'untowermain1',
+                  name: 'dailycheck',
                   authorization: [{
                     actor: array[count],
                     permission: 'owner'
                   }],
                   data: {
-                    from: array[count],
-                    to: 'untowermain1',
-                    quantity: '1.0000 EOS',
-                    memo: memo
+                    _user: array[count],
+                    _seed:result.body.seed
                   }
                 }
               ]
