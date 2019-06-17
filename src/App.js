@@ -332,7 +332,7 @@ class App extends Component {
           />
         </form>
         <button onClick={this.btFSameSignup}>ALL STAGE EXIT</button>
-        <button onClick={this.btFGachaAll}>Samekeygacha</button>
+        <button onClick={this.btFGachaAll}>DAILYCHECK</button>
         <button onClick={this.btFunctionGettable}>active gogo</button>
 
       </div>
